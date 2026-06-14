@@ -1,0 +1,15 @@
+from pathlib import Path
+import json
+
+ROOT_DIR = Path(__file__).resolve().parents[3]
+
+def load_system_prompt() -> str:
+    path = ROOT_DIR/"prompts"/"system_prompt.txt"
+    return path.read_text(encoding="utf-8")
+
+
+def load_heroine() -> dict:
+    path = ROOT_DIR/"prompts"/"heroine01.json"
+    with open(path, encoding="utf-8")as f:
+        return json.load(f)
+    
