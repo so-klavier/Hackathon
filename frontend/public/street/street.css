@@ -1,0 +1,17 @@
+.start{
+    height: 30vw;
+    width: 100svw;
+    background-color: red;
+}
+
+.card{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-item{
+    height: 15vw;
+    width: 10vw;
+    background-color: blue;
+    margin: 2vw;
+}
