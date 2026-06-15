@@ -1,8 +1,14 @@
 from ollama import chat
+from app.services.memory import(
+    add_user_message,
+    add_assistant_message,
+    get_history
+)
 from app.services.prompt_loader import(
     load_system_prompt,
     load_heroine
 )
+
 
 async def generate_response(message: str)->str:
     system_prompt = load_system_prompt()
@@ -15,9 +21,9 @@ async def generate_response(message: str)->str:
 話し方: {", ".join(heroine["speech_style"])}
 好き: {", ".join(heroine["likes"])}
 """
-    response = chat(
-        model="qwen3:4b",
-        messages=[
+    add_user_message(message)
+
+    messages = [
             {
                 "role": "system",
                 "content": system_prompt
@@ -25,11 +31,16 @@ async def generate_response(message: str)->str:
             {
                 "role": "system",
                 "content": character_prompt
-            },
-            {
-                "role": "user",
-                "content": message
             }
         ]
+
+    messages.extend(get_history())
+
+    response = chat(
+        model="qwen3:4b",
+        messages=messages
     )
-    return response.message.content
+    answer = response.message.content
+    add_assistant_message(answer)
+
+    return answer
