@@ -1,25 +1,11 @@
-const chat = document.getElementById('chat');
-const sendBtn = document.getElementById('sendBtn');
+const chatBox = document.getElementById("chat");
+const sendBtn = document.getElementById("sendBtn");
 
-sendBtn.addEventListener('click', () => {
-    const message = chat.value;
-    if (message.trim() !== '') {
-        fetch('http://127.0.0.1:5002/message',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ "message": message })
-        }).then(response => response.json())
-          .then(data => {
-              console.log('サーバーからの応答:', data);
-          })
-          .catch(error => {
-              console.error('エラー:', error);
-          });
+const chat = new chatEngine("User", "",chatBox);
 
+sendBtn.addEventListener("click", async () => {
+    const message = chatBox.value;
+    const res = await chat.generate("User", message);
 
-        console.log('送信されたメッセージ:', message);
-        chat.value = ''; // メッセージ送信後にテキストエリアをクリア
-    }
-})
+    console.log(res);
+});
