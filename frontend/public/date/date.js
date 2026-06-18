@@ -7,5 +7,5 @@ sendBtn.addEventListener("click", async () => {
     const message = chatBox.value;
     const res = await chat.generate("User", message);
 
-    console.log(res);
+    console.log(res)
 });
