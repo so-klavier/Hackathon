@@ -25,7 +25,6 @@ async def generate_response(message: str)->str:
 職業: {heroine["occupation"]}
 性格: {", ".join(heroine["personality"])}
 話し方: {", ".join(heroine["speech_style"])}
-好き: {", ".join(heroine["likes"])}
 """
     relationship_prompt = f"""
     好感度: {affection}

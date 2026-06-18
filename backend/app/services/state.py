@@ -1,6 +1,6 @@
 game_state = {
     "heroine": {
-        "affection": 28,
+        "affection": 90,
     },
     "flags": {}
 }
