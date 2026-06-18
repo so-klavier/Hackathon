@@ -5,6 +5,7 @@ game_state = {
     "flags": {}
 }
 
+
 def get_affection():
     return game_state["heroine"]["affection"]
 
