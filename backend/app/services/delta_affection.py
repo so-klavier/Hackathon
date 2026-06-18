@@ -9,4 +9,4 @@ def apply_affection_rules(message: str):
     elif "好き" in message:
         update_affection(5)
     elif "嫌い" in message:
-        update_affection(-5)   
+        update_affection(-5)
