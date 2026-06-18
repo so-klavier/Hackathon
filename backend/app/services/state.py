@@ -1,10 +1,9 @@
 game_state = {
     "heroine": {
-        "affection": 90,
+        "affection": -80,
     },
     "flags": {}
 }
-
 
 def get_affection():
     return game_state["heroine"]["affection"]
