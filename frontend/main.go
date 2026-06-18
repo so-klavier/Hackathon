@@ -1,6 +1,8 @@
 package main
 
 import (
+	"bytes"
+	"fmt"
 	"io"
 	"net/http"
 	"time"
@@ -17,22 +19,29 @@ func main() {
 	router.Static("/", "./public")
 
 	router.POST("/message", func(c *gin.Context) {
+		bodyBytes, err := io.ReadAll(c.Request.Body)
+		fmt.Println("受信したBody:", string(bodyBytes))
+
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to read body"})
+			return
+		}
 		// 1. HTTPクライアントの作成（タイムアウトを設定するのが安全です）
 		client := &http.Client{
-			Timeout: 10 * time.Second,
+			Timeout: 300 * time.Second,
 		}
 
 		// 2. 外部APIへのGETリクエストを作成（例としてテスト用のパブリックAPIを使用）
 		externalAPIURL := "http://127.0.0.1:8000/chat"
-		req, err := http.NewRequest("POST", externalAPIURL, nil)
+		req, err := http.NewRequest("POST", externalAPIURL, bytes.NewBuffer(bodyBytes))
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "リクエストの作成に失敗しました"})
 			return
 		}
 
 		// (任意) ヘッダーの追加が必要な場合はここで行います
-		// req.Header.Add("Authorization", "Bearer YOUR_TOKEN")
-		// req.Header.Add("Content-Type", "application/json")
+		req.Header.Add("Authorization", "Bearer YOUR_TOKEN")
+		req.Header.Add("Content-Type", "application/json")
 
 		// 3. リクエストの実行
 		resp, err := client.Do(req)
