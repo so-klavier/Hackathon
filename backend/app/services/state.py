@@ -8,8 +8,6 @@ game_state = {
 def get_affection():
     return game_state["heroine"]["affection"]
 
-def update_affection(delta: int):
-    game_state["heroine"]["affection"] += delta
 
 def get_relationship():
     affection = game_state["heroine"]["affection"]
@@ -22,3 +20,7 @@ def get_relationship():
     elif affection < 80:
         return "好意を持っている"
     return "かなり好意を持っている"
+
+
+def update_affection(delta: int):
+    game_state["heroine"]["affection"] += delta
