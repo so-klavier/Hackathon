@@ -1,0 +1,10 @@
+{
+    "user_id": "user000",
+    "heroine_id": "heroine01",
+    "relationship": {
+        "affection": 1.7144613787531853,
+        "flags": {
+            "first_meeting": false
+        }
+    }
+}

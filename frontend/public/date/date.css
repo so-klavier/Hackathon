@@ -23,7 +23,7 @@ body {
     height: 100%;
     z-index: 10;
 
-    background-image: url('../img/background.png');
+    background-image: url('../img/back.png');
     background-size: cover;
 }
 
@@ -148,4 +148,11 @@ body {
     outline: none;
     color: #e7e7e7;
     font-size: 1em;
+}
+
+.ch-img{
+    position: absolute;
+    top: 15vh;
+    left: 10vw;
+    height: 50vh;
 }
