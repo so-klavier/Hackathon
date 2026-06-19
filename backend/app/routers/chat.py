@@ -8,8 +8,9 @@ router = APIRouter()
 
 @router.post("/chat",response_model=Chatresponse)
 async def chat(request: Chatrequest):
-    apply_affection_rules(request.message)
+    apply_affection_rules(request.message, "user")
     print(f"Current affection: {get_affection()}")
     print(request.message)
     response = await generate_response(request.message)
+    apply_affection_rules(response, "ai")
     return Chatresponse(response=response)
