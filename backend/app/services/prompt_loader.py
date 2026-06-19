@@ -9,7 +9,11 @@ def load_system_prompt() -> str:
 
 
 def load_heroine() -> dict:
-    path = ROOT_DIR/"prompts"/"characters"/"heroine01.json"
+    path = ROOT_DIR/"backend"/"data"/"characters"/"heroine01.json"
     with open(path, encoding="utf-8")as f:
         return json.load(f)
     
+def load_user(user_id: str) -> dict:
+    path = ROOT_DIR/"backend"/"data"/"users"/f"{user_id}.json"
+    with open(path, encoding="utf-8")as f:
+        return json.load(f)

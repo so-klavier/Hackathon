@@ -15,7 +15,7 @@ def apply_affection_rules(message: str, speaker: str):
     # elif "嫌い" in message:
     #     update_affection(-5)
     evaluate_emotions(message, speaker)
-    get_affection()
+    get_affection("user000", "heroine01")
 
 
 emotions_history_ai = np.array([[], [], [], [], [], [], [], []])
@@ -81,7 +81,7 @@ def evaluate_favorable():
     print("内積:", score_emotions_history_ai[-1])
 
     if emotions_history_ai.shape[1] < 7:
-        update_affection(score_emotions_history_ai[-1] * 0.5)
+        update_affection("user000", "heroine01", score_emotions_history_ai[-1] * 0.5)
         return
 
     # 移動平均MAを計算する、短期と長期の傾向の比較が可能、それにより現在の好感度の傾向がわかる。これを今のターンの会話の好感度の変化の正負と一致するかを比較することで、好感度変化により正確の変化を計算できる。
@@ -126,4 +126,4 @@ def evaluate_favorable():
 
     print("好感度変化:", score_emotions_history_ai[-1] + ma_difference + empathy_score)
 
-    update_affection(score_emotions_history_ai[-1] + ma_difference + empathy_score)
+    update_affection("user000", "heroine01", score_emotions_history_ai[-1] + ma_difference + empathy_score)

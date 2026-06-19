@@ -1,16 +1,24 @@
-game_state = {
-    "heroine": {
-        "affection": 0,
-    },
-    "flags": {}
-}
+import json
+from pathlib import Path
 
-def get_affection():
-    return game_state["heroine"]["affection"]
+RELATIONSHIP_DATA_PATH = Path(__file__).resolve().parents[3] / "backend" / "data" / "relationships"
 
 
-def get_relationship():
-    affection = game_state["heroine"]["affection"]
+def get_relationship_data(user_id, heroine_id):
+    file_path = RELATIONSHIP_DATA_PATH / f"{user_id}_{heroine_id}.json"
+    if file_path.exists():
+        with open(file_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    return None
+
+
+def get_affection(user_id: str, heroine_id: str) -> int:
+    relationship = get_relationship_data(user_id, heroine_id)
+    return relationship["relationship"]["affection"]
+
+
+def get_relationship(user_id:str, heroine_id:str) -> str:
+    affection = get_affection(user_id, heroine_id)
     if affection < 0:
         return "ユーザーを嫌っている"
     elif affection < 20:
@@ -21,6 +29,12 @@ def get_relationship():
         return "好意を持っている"
     return "かなり好意を持っている"
 
+def save_relationship_data(user_id:str, heroine_id:str, relationship_data: dict):
+    file_path = RELATIONSHIP_DATA_PATH / f"{user_id}_{heroine_id}.json"
+    with open(file_path, "w", encoding="utf-8") as f:
+        json.dump(relationship_data, f, ensure_ascii=False, indent=4)
 
-def update_affection(delta: int):
-    game_state["heroine"]["affection"] += delta
+def update_affection(user_id:str, heroine_id:str, delta: int):
+    relationship = get_relationship_data(user_id, heroine_id)
+    relationship["relationship"]["affection"] += delta
+    save_relationship_data(user_id, heroine_id, relationship)
