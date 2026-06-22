@@ -1,12 +1,17 @@
-game_state = {
-    "heroine": {
-        "affection": -80,
-    },
-    "flags": {}
-}
+import json
+from pathlib import Path
 
-def get_affection():
-    return game_state["heroine"]["affection"]
+RELATIONSHIP_DATA_PATH = Path(__file__).resolve().parents[3] / "backend" / "data" / "relationships"
+
+def get_relationship_data(user_id:str, heroine_id:str) -> dict:
+    file_path = RELATIONSHIP_DATA_PATH / f"{user_id}_{heroine_id}.json"
+    with open(file_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def get_affection(user_id: str, heroine_id: str) -> int:
+    relationship = get_relationship_data(user_id, heroine_id)
+    return relationship["relationship"]["affection"]
 
 
 def get_relationship(user_id:str, heroine_id:str) -> str:
