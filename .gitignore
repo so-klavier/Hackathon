@@ -4,3 +4,12 @@
 *.pyd
 .idea/
 .vscode/
+.Python/
+.venv/
+[Ii]nclude/
+[Ll]ib/
+[Li]ib64/
+[Ss]cripts/
+pyvenv.cfg
+.venv
+pip-selfcheck.json
