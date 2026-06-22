@@ -6,12 +6,12 @@
     display: flex;
     flex-direction: column;
     height: 40vh;
-    background-color: rgb(255, 138, 198);
+    /* background-color: rgb(255, 138, 198); */
     margin: 0;
     width: 100%;
     position: relative;
 
-    background: linear-gradient(white, 15%, pink, 85%, white);
+    
 }
 
 /*.card-item {
@@ -53,6 +53,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: linear-gradient(white, 15%, pink, 85%, white);
     width: 100%;
 }
 

@@ -4,22 +4,33 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="date.css" />
+        <link rel="stylesheet" href="background.css" />
+        <link rel="stylesheet" href="character.css" />
+        <link rel="stylesheet" href="ui-animation.css" />
+        <link rel="stylesheet" href="ui.css" />
         <title>運命の出会い</title>
     </head>
     <body>
         <div class="container">
             <div class="background-layer"></div>
             <div class="character-layer">
-                <img src="../img/ch1.png" alt="" class="ch-img">
+                <img src="../img/ch1.png" alt="" class="ch-img" />
+            </div>
+            <div class="ui-animation-layer">
+                <div class="big-chat dynamic-chat">
+                    <p id="small-chat-text"></p>
+                </div>
             </div>
             <div class="ui-layer">
                 <div class="ui-container">
                     <div class="data-container"></div>
                     <div class="set-right send-btn-container">
-                        <button type="button" class="send-btn" id="sendBtn">送信</button>
+                        <button type="button" class="liquid-glass-btn" id="sendBtn">送信</button>
                     </div>
                     <div class="chat-container">
-                        <textarea name="chat" id="chat" class="chat"></textarea>
+                        <div class="chat-box">
+                            <textarea name="chat" id="chat" class="chat"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -28,6 +39,5 @@
         <script src="../engine/engine.js"></script>
 
         <script src="date.js"></script>
-        
     </body>
 </html>
