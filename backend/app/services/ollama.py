@@ -13,14 +13,25 @@ from app.services.state import(
     get_relationship,
     get_affection
 )
+from app.services.events import(
+    get_available_events
+)
 
-#今はuser_idとheroine_idは固定で"user000"と"heroine01"を使用しているが、将来的にはrequestから取得するように変更する予定。
+#今はuser_idとheroine_idは固定で"user000"と"heroine02"を使用しているが、将来的にはrequestから取得するように変更する予定。
 async def generate_response(message: str)->str:
     system_prompt = load_system_prompt()
     heroine = load_heroine("heroine02")
     user = load_user("user000")
     relationship = get_relationship(user_id="user000", heroine_id="heroine02")
     affection = get_affection(user_id="user000", heroine_id="heroine02")
+
+    event = get_available_events(user_id="user000", heroine_id="heroine02")
+    event_prompt = f"""
+    現在発生中のイベント: {event["name"]}
+    {event["prompt"]}
+    通常会話ではなくこのイベントに沿った会話をすること。
+    """
+
     character_prompt = f"""
 名前: {heroine["name"]}
 年齢: {heroine["age"]}
@@ -54,6 +65,11 @@ async def generate_response(message: str)->str:
                 "content": relationship_prompt
             }
         ]
+    if event:
+        messages.append({
+            "role": "system",
+            "content": event_prompt
+        })
 
     messages.extend(get_history())
 

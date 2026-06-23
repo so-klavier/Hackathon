@@ -35,3 +35,12 @@ def update_affection(user_id:str, heroine_id:str, delta: int):
     relationship = get_relationship_data(user_id, heroine_id)
     relationship["relationship"]["affection"] += delta
     save_relationship_data(user_id, heroine_id, relationship)
+
+def get_flags(user_id:str, heroine_id:str, flag_name: str) -> bool:
+    relationship = get_relationship_data(user_id, heroine_id)
+    return relationship["flags"].get(flag_name, False)
+
+def set_flags(user_id:str, heroine_id:str, flag_name: str, value: bool):
+    relationship = get_relationship_data(user_id, heroine_id)
+    relationship["flags"][flag_name] = value
+    save_relationship_data(user_id, heroine_id, relationship)
