@@ -1,0 +1,150 @@
+.ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+}
+
+.ui-container {
+    display: flex;
+
+    height: 100%;
+    width: 100%;
+}
+
+.data-container{
+    height: 50%;
+    width: 100%;
+}
+
+.send-btn-container{
+    height: 10%;
+}
+
+.chat-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 40%;
+    width: 100%;
+}
+
+.send-btn{
+    background-color: #ffffff77;
+    backdrop-filter: blur(5px);
+    height: 95%;
+    width: 20%;
+    border-radius: 80px;
+    border: 1px solid #b6b6b6;
+    border-top-right-radius: 1px solid #ffffff;
+
+    margin-bottom: 5%;
+}
+
+.ui-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.chat-container{
+    height: 40%;
+    width: 100%;
+}
+
+.chat-box {
+    height: 80%;
+    width: 90%;
+    resize: none;
+
+    position: relative;
+    width: 90%;
+    box-sizing: border-box;
+    color: white;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.4),
+        inset 0 0 20px rgba(255, 255, 255, 0.1);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.chat{
+    position: relative;
+    height: 80%;
+    width: 95%;
+    resize: none;
+
+    background: none;
+    border: none;
+
+    outline: none;
+    color: #e7e7e7;
+    font-size: 1em;
+}
+
+/* デモ用の背景コンテナ */
+.glass-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    /* background: linear-gradient(135deg, #120c1f 0%, #3f2b96 50%, #a8c0ff 100%); */
+    border-radius: 12px;
+}
+
+/* リキッドガラスボタン */
+.liquid-glass-btn {
+    position: relative;
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #727272;
+    background: rgba(251, 124, 190, 0.238); /* 透過したベースカラー */
+    border: 1px solid rgba(255, 255, 255, 0.25); /* ガラスの端のハイライト */
+    border-radius: 30px;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    /* スリガラス効果（blur）と色の鮮やかさ（saturate）の調整 */
+    backdrop-filter: blur(15px) saturate(140%);
+    -webkit-backdrop-filter: blur(15px) saturate(140%);
+
+    /* 厚みと屈折を再現する複数のシャドウ */
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.4),
+        /* 上部の強い光沢 */ inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+        /* 下部のわずかな影 */ 0 4px 15px rgba(0, 0, 0, 0.15),
+        /* ボタン自体の影 */ 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* ホバー時の処理（ぷるんとした膨らみと発光感） */
+.liquid-glass-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.5),
+        0 8px 25px rgba(255, 255, 255, 0.2),
+        /* ガラス越しの発光感 */ 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px) scale(1.03);
+    color: rgba(255, 154, 157, 0.507);
+}
+
+.liquid-glass-btn:active {
+    transform: translateY(1px) scale(0.97);
+    background: rgba(255, 255, 255, 0.05);
+}
