@@ -4,11 +4,14 @@
 }
 .card-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 40vh;
-    background-color: #f121b2;
+    /* background-color: rgb(255, 138, 198); */
     margin: 0;
+    width: 100%;
+    position: relative;
 
+    
 }
 
 /*.card-item {
@@ -19,44 +22,100 @@
     height: 26vh;
     width: 12vw;
 }*/
+
 #card3 {
     top: 4vh;
     left: 44.6vw;
     position: absolute;
-    background-color: white;    
+    background-color: white;
     height: 31.2vh;
     width: 10.6vw;
     border-radius: 2rem;
     border: 2vw 2vw solid #040c1400;
-  background: rgba(255, 255, 255, 0.7);
-  opacity: 0.8;
+    background: rgba(255, 255, 255, 0.7);
+    opacity: 0.8;
 }
-#button {
- position: absolute;
- font-size: 2rem;
- border-radius: 2rem;
- top: 41vh;
- left: 40vw;
- height: 6vh;
- width: 20vw;
- text-indent: 6.25vw;
- background-color: #ff1493;
-}
-    /* position: absolute;
-    top: 41vh;
-    left: 42.5vw;
+
+/* #button {
+    font-size: 2rem;
+    border-radius: 2rem;
     height: 6vh;
-    width: 15vw;
-    font-size: 3.0vh;
-    background-color: #007bff;
-    color: #cfe0f1;
-    border-radius: 2.0vh;
+    width: 20vw;
+    text-indent: 6.25vw;
+    background-color: #ff1493;
+
+    color: white;
+} */
+
+.start-container {
+    height: 60vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(white, 15%, pink, 85%, white);
+    width: 100%;
+}
+
+.start-btn-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 10vh;
+}
+
+/* デモ用の背景コンテナ */
+.glass-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+    /* background: linear-gradient(135deg, #120c1f 0%, #3f2b96 50%, #a8c0ff 100%); */
+    border-radius: 12px;
+}
+
+/* リキッドガラスボタン */
+.liquid-glass-btn {
+    position: relative;
+    padding: 14px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #727272;
+    background: rgba(251, 124, 190, 0.238); /* 透過したベースカラー */
+    border: 1px solid rgba(255, 255, 255, 0.25); /* ガラスの端のハイライト */
+    border-radius: 30px;
     cursor: pointer;
-    opacity:0.719;
-} */
-/* .patch {
- position: absolute;
+    outline: none;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 
-} */
+    /* スリガラス効果（blur）と色の鮮やかさ（saturate）の調整 */
+    backdrop-filter: blur(15px) saturate(140%);
+    -webkit-backdrop-filter: blur(15px) saturate(140%);
 
-/*  */
+    /* 厚みと屈折を再現する複数のシャドウ */
+    box-shadow:
+        inset 0 1px 1px rgba(255, 255, 255, 0.4),
+        /* 上部の強い光沢 */ inset 0 -1px 2px rgba(0, 0, 0, 0.1),
+        /* 下部のわずかな影 */ 0 4px 15px rgba(0, 0, 0, 0.15),
+        /* ボタン自体の影 */ 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* ホバー時の処理（ぷるんとした膨らみと発光感） */
+.liquid-glass-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.5),
+        0 8px 25px rgba(255, 255, 255, 0.2),
+        /* ガラス越しの発光感 */ 0 4px 10px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px) scale(1.03);
+    color: rgba(255, 154, 157, 0.507);
+}
+
+.liquid-glass-btn:active {
+    transform: translateY(1px) scale(0.97);
+    background: rgba(255, 255, 255, 0.05);
+}
