@@ -29,7 +29,7 @@ class chatEngine {
 
             const data = await response.json();
             this.serif = data.response;
-            return data;
+            return data.response;
         }
         return null;
     }
