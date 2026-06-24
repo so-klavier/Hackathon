@@ -2,7 +2,7 @@
     "user_id": "user000",
     "heroine_id": "heroine02",
     "relationship": {
-        "affection": 0.9101082838140429,
+        "affection": 0.0,
         "flags": {
             "first_meeting": false,
             "first_date": false,

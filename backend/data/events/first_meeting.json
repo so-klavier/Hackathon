@@ -3,7 +3,7 @@
 
     "name": "出会い",
 
-    "priority": 1,
+    "priority": 10,
 
     "conditions":{
         "required_affection": 0,
