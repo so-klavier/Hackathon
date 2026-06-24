@@ -1,11 +1,9 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"io"
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,57 +11,60 @@ import (
 func main() {
 	router := gin.Default()
 
-	// serve static files from ./public directory
-	// mount the whole public directory at the root so paths map directly
-	// e.g. /street/index.html -> ./public/street/index.html
 	router.Static("/", "./public")
 
 	router.POST("/message", func(c *gin.Context) {
 		bodyBytes, err := io.ReadAll(c.Request.Body)
 		fmt.Println("受信したBody:", string(bodyBytes))
-
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to read body"})
 			return
 		}
-		// 1. HTTPクライアントの作成（タイムアウトを設定するのが安全です）
-		client := &http.Client{
-			Timeout: 300 * time.Second,
-		}
 
-		// 2. 外部APIへのGETリクエストを作成（例としてテスト用のパブリックAPIを使用）
-		externalAPIURL := "http://127.0.0.1:8000/chat"
-		req, err := http.NewRequest("POST", externalAPIURL, bytes.NewBuffer(bodyBytes))
+		body, err := callapi("http://127.0.0.1:8000/chat", bodyBytes)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "リクエストの作成に失敗しました"})
+			c.Data(502, "application/json; charset=utf-8", body)
 			return
 		}
 
-		// (任意) ヘッダーの追加が必要な場合はここで行います
-		req.Header.Add("Authorization", "Bearer YOUR_TOKEN")
-		req.Header.Add("Content-Type", "application/json")
+		//var bodyData map[string]any
+		//
+		//json.Unmarshal(body, &bodyData)
+		//
+		//emotion, err := callapi("http://127.0.0.1:8000/emotion", bodyBytes)
+		//if err != nil {
+		//	c.Data(502, "application/json; charset=utf-8", body)
+		//	return
+		//}
+		//
+		//var emotionData map[string]any
+		//
+		//json.Unmarshal(emotion, &emotionData)
+		//
+		//bodyData["emotion"] = emotionData
+		//
+		//body, _ = json.Marshal(bodyData)
 
-		// 3. リクエストの実行
-		resp, err := client.Do(req)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "外部APIへの通信に失敗しました"})
-			return
-		}
-		// 関数を抜けるときに必ずボディを閉じる
-		defer resp.Body.Close()
-
-		// 4. レスポンスボディの読み込み
-		body, err := io.ReadAll(resp.Body)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": "レスポンスの読み込みに失敗しました"})
-			return
-		}
-
-		// 5. 取得したデータをそのままフロントエンド（クライアント）に返す
-		// 外部APIがJSONを返している場合は、Data関数でそのまま流せます
-		c.Data(resp.StatusCode, "application/json; charset=utf-8", body)
+		c.Data(200, "application/json; charset=utf-8", body)
 	})
 
+	router.POST("/emotion", func(c *gin.Context) {
+		bodyBytes, err := io.ReadAll(c.Request.Body)
+		fmt.Println("受信したBody:", string(bodyBytes))
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "Failed to read body"})
+			return
+		}
+
+		body, err := callapi("http://127.0.0.1:8000/emotion", bodyBytes)
+		if err != nil {
+			c.Data(502, "application/json; charset=utf-8", body)
+			return
+		}
+		c.Data(200, "application/json; charset=utf-8", body)
+	})
+
+	fmt.Println("Server is running on port http://127.0.0.1:5002")
 	err := router.Run(":5002")
 	if err != nil {
 		return
