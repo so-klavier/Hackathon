@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+#jsonへのアクセスを行うための関数を定義するファイル
+
 RELATIONSHIP_DATA_PATH = Path(__file__).resolve().parents[3] / "backend" / "data" / "relationships"
 
 def get_relationship_data(user_id:str, heroine_id:str) -> dict:
@@ -34,4 +36,13 @@ def save_relationship_data(user_id:str, heroine_id:str, relationship_data: dict)
 def update_affection(user_id:str, heroine_id:str, delta: int):
     relationship = get_relationship_data(user_id, heroine_id)
     relationship["relationship"]["affection"] += delta
+    save_relationship_data(user_id, heroine_id, relationship)
+
+def get_flags(user_id:str, heroine_id:str, flag_name: str) -> bool:
+    relationship = get_relationship_data(user_id, heroine_id)
+    return relationship["relationship"]["flags"].get(flag_name, False)
+
+def set_flags(user_id:str, heroine_id:str, event_id: str, value: bool):
+    relationship = get_relationship_data(user_id, heroine_id)
+    relationship["relationship"]["flags"][event_id] = value
     save_relationship_data(user_id, heroine_id, relationship)

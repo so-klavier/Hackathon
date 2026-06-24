@@ -8,8 +8,8 @@ def load_system_prompt() -> str:
     return path.read_text(encoding="utf-8")
 
 
-def load_heroine() -> dict:
-    path = ROOT_DIR/"backend"/"data"/"characters"/"heroine01.json"
+def load_heroine(heroine_id: str) -> dict:
+    path = ROOT_DIR/"backend"/"data"/"characters"/f"{heroine_id}.json"
     with open(path, encoding="utf-8")as f:
         return json.load(f)
     

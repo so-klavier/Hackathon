@@ -11,16 +11,23 @@ from app.services.prompt_loader import(
 )
 from app.services.state import(
     get_relationship,
-    get_affection
+    get_affection,
+    set_flags
+)
+from app.services.events import(
+    get_available_events
 )
 
-#今はuser_idとheroine_idは固定で"user000"と"heroine01"を使用しているが、将来的にはrequestから取得するように変更する予定。
+#今はuser_idとheroine_idは固定で"user000"と"heroine02"を使用しているが、将来的にはrequestから取得するように変更する予定。
 async def generate_response(message: str)->str:
+
     system_prompt = load_system_prompt()
-    heroine = load_heroine()
+    heroine = load_heroine("heroine02")
     user = load_user("user000")
-    relationship = get_relationship(user_id="user000", heroine_id="heroine01")
-    affection = get_affection(user_id="user000", heroine_id="heroine01")
+    relationship = get_relationship(user_id="user000", heroine_id="heroine02")
+    affection = get_affection(user_id="user000", heroine_id="heroine02")
+    event = get_available_events(user_id="user000", heroine_id="heroine02")
+
     character_prompt = f"""
 名前: {heroine["name"]}
 年齢: {heroine["age"]}
@@ -54,11 +61,27 @@ async def generate_response(message: str)->str:
                 "content": relationship_prompt
             }
         ]
+    if event:
+        event_prompt = f"""
+        現在発生中のイベント: {event["name"]}
+        {event["prompt"]}
+        通常会話ではなくこのイベントに沿った会話をすること。
+        """
+        messages.append({
+            "role": "system",
+            "content": event_prompt
+        })
+        set_flags(user_id="user000", heroine_id="heroine02", event_id=event["event_id"], value=True)
+    else:
+        messages.append({
+            "role": "system",
+            "content": "現在発生中のイベントはありません。"
+        })
 
     messages.extend(get_history())
 
     response = chat(
-        model="gemma3:4B",
+        model="gemma4:e4B",
         messages=messages,
         think=False
     )
