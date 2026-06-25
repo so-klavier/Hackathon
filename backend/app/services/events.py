@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from app.services.state import (get_affection, set_flags, get_flags)
+from app.services.state import (get_affection, get_flags)
 
 EVENT_DATA_PATH = Path(__file__).resolve().parents[3] / "backend" / "data" / "events"
 

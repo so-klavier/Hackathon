@@ -2,6 +2,9 @@ from app.services.state import(
     update_affection,
     get_affection
 )
+from app.services.events import(get_available_events)
+event = get_available_events(user_id="user000", heroine_id="heroine02")
+
 
 import numpy as np
 import torch
@@ -21,32 +24,32 @@ def apply_affection_rules(message: str, speaker: str):
 emotions_history_ai = np.array([[], [], [], [], [], [], [], []])
 emotions_history_user = np.array([[], [], [], [], [], [], [], []])
 
+#モデルとトークナイザの読み込み
+model_name = "neuralnaut/deberta-wrime-emotions"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSequenceClassification.from_pretrained(model_name)
+
 def evaluate_emotions(text, speaker):
     global emotions_history_ai
     global emotions_history_user
 
-    # 1. モデルとトークナイザの読み込み
-    model_name = "neuralnaut/deberta-wrime-emotions"
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModelForSequenceClassification.from_pretrained(model_name)
-
-    # 2. 分析したいテキスト
+    # 1. 分析したいテキスト
     # text
 
-    # 3. テキストをモデルの入力形式に変換
+    # 2. テキストをモデルの入力形式に変換
     inputs = tokenizer(text, return_tensors="pt", truncation=True, max_length=128)
 
-    # 4. 予測を実行
+    # 3. 予測を実行
     model.eval()
     with torch.no_grad():
         outputs = model(**inputs)
 
-    # 5. 結果の取り出しとデノーマライズ（0.0〜1.0 から 0.0〜3.0 スケールへ変換）
+    # 4. 結果の取り出しとデノーマライズ（0.0〜1.0 から 0.0〜3.0 スケールへ変換）
     predictions = outputs.logits.cpu().numpy()[0]
     predictions_original = predictions * 3.0
     predictions_original = np.clip(predictions_original, 0.0, 3.0)
 
-    # 6. 結果の表示
+    # 5. 結果の表示
     EMOTION_LABELS = [
         "喜び (joy)",
         "悲しみ (sadness)",
@@ -57,17 +60,18 @@ def evaluate_emotions(text, speaker):
         "嫌悪 (disgust)",
         "信頼 (trust)",
     ]
-
-    print(f"入力テキスト: {text}\n")
     print("【感情の分析結果（強さ：0.0 〜 3.0）】")
     for label, score in zip(EMOTION_LABELS, predictions_original):
         print(f"- {label}: {score:.2f}")
 
     if speaker == "ai":
         emotions_history_ai = np.column_stack((emotions_history_ai, predictions_original))
+        print(f"イベント: {event['name'] if event else 'なし'}\n")
+        print(f"出力テキスト: {text}\n")
         evaluate_favorable()
     elif speaker == "user":
         emotions_history_user = np.column_stack((emotions_history_user, predictions_original))
+        print(f"入力テキスト: {text}\n")
 
 
 weights = np.array([1.0, -0.3, 0.8, 0.0, -1.2, -0.8, -1.5, 1.5]) #各感情の重み
