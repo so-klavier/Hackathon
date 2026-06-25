@@ -33,6 +33,7 @@ async def generate_response(message: str)->str:
 年齢: {heroine["age"]}
 職業: {heroine["occupation"]}
 性格: {", ".join(heroine["personality"])}
+好きなもの: {", ".join(heroine["likes"])}
 話し方: {", ".join(heroine["speech_style"])}
 """
     relationship_prompt = f"""
@@ -88,4 +89,7 @@ async def generate_response(message: str)->str:
     answer = response.message.content
     add_assistant_message(answer)
 
-    return answer
+    return {
+        "message": answer,
+        "event": event["name"] if event else None
+    }

@@ -5,3 +5,4 @@ class Chatrequest(BaseModel):
 
 class Chatresponse(BaseModel):
     response: str
+    event: str | None
