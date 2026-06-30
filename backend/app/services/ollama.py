@@ -9,14 +9,12 @@ from app.services.prompt_loader import(
     load_heroine,
     load_user
 )
-from app.services.state import(
-    get_relationship,
-    get_affection,
-    set_flags
-)
+from app.services.state import(Relationship_Manager)
 from app.services.events import(
     get_available_events
 )
+
+manager = Relationship_Manager()
 
 #今はuser_idとheroine_idは固定で"user000"と"heroine02"を使用しているが、将来的にはrequestから取得するように変更する予定。
 async def generate_response(message: str)->str:
@@ -24,9 +22,9 @@ async def generate_response(message: str)->str:
     system_prompt = load_system_prompt()
     heroine = load_heroine("heroine02")
     user = load_user("user000")
-    relationship = get_relationship(user_id="user000", heroine_id="heroine02")
-    affection = get_affection(user_id="user000", heroine_id="heroine02")
-    event = get_available_events(user_id="user000", heroine_id="heroine02")
+    relationship = manager.get_relationship("user000", "heroine02")
+    affection = manager.get_value("user000", "heroine02", "affection", 0)
+    event = get_available_events("user000", "heroine02")
 
     character_prompt = f"""
 名前: {heroine["name"]}
@@ -72,7 +70,7 @@ async def generate_response(message: str)->str:
             "role": "system",
             "content": event_prompt
         })
-        set_flags(user_id="user000", heroine_id="heroine02", event_id=event["event_id"], value=True)
+        manager.add_flag("user000", "heroine02", event["event_id"])
     else:
         messages.append({
             "role": "system",

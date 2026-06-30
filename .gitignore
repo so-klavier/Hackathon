@@ -3,9 +3,6 @@
 *.pyo
 *.pyd
 .idea/
-<<<<<<< HEAD
-.vscode/
-=======
 .vscode/
 .Python/
 .venv/
@@ -16,4 +13,3 @@
 pyvenv.cfg
 .venv
 pip-selfcheck.json
->>>>>>> eb0af1335328e25e2939e97988f325432ac4695a

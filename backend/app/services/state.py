@@ -3,46 +3,56 @@ from pathlib import Path
 
 #jsonへのアクセスを行うための関数を定義するファイル
 
-RELATIONSHIP_DATA_PATH = Path(__file__).resolve().parents[3] / "backend" / "data" / "relationships"
+USER_DATA_PATH = Path(__file__).resolve().parents[3] / "backend" / "data" / "users"
 
-def get_relationship_data(user_id:str, heroine_id:str) -> dict:
-    file_path = RELATIONSHIP_DATA_PATH / f"{user_id}_{heroine_id}.json"
-    with open(file_path, "r", encoding="utf-8") as f:
-        relationship_data = json.load(f)
-    return relationship_data
-
-def get_affection(user_id:str, heroine_id:str):
-    relationship_data = get_relationship_data(user_id, heroine_id)
-    return relationship_data["relationship"]["affection"]
-
-
-def get_relationship(user_id:str, heroine_id:str) -> str:
-    affection = get_affection(user_id, heroine_id)
-    if affection < 0:
-        return "ユーザーを嫌っている"
-    elif affection < 20:
-        return "まだ警戒している"
-    elif affection < 50:
-        return "友達として接している"
-    elif affection < 80:
-        return "好意を持っている"
-    return "かなり好意を持っている"
-
-def save_relationship_data(user_id:str, heroine_id:str, relationship_data: dict):
-    file_path = RELATIONSHIP_DATA_PATH / f"{user_id}_{heroine_id}.json"
-    with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(relationship_data, f, ensure_ascii=False, indent=4)
-
-def update_affection(user_id:str, heroine_id:str, delta: int):
-    relationship = get_relationship_data(user_id, heroine_id)
-    relationship["relationship"]["affection"] += delta
-    save_relationship_data(user_id, heroine_id, relationship)
-
-def get_flags(user_id:str, heroine_id:str, flag_name: str) -> bool:
-    relationship = get_relationship_data(user_id, heroine_id)
-    return relationship["relationship"]["flags"].get(flag_name, False)
-
-def set_flags(user_id:str, heroine_id:str, event_id: str, value: bool):
-    relationship = get_relationship_data(user_id, heroine_id)
-    relationship["relationship"]["flags"][event_id] = value
-    save_relationship_data(user_id, heroine_id, relationship)
+class Relationship_Manager:
+    def load_user_data(self, user_id: str)-> dict:
+        file_path = USER_DATA_PATH / f"{user_id}.json"
+        with open(file_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    
+    def save_user_data(self, user_id: str, data: dict)-> None:
+        file_path = USER_DATA_PATH / f"{user_id}.json"
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii="False", indent=4)
+    
+    def get_relationship_data(self, user_id: str, heroine_id: str)->dict:
+        data = self.load_user_data(user_id)
+        return data["relationship"][heroine_id]
+    
+    def get_value(self, user_id: str, heroine_id: str, key: str, default: None):
+        relationship = self.get_relationship_data(user_id, heroine_id)
+        return relationship.get(key, default)
+    
+    def set_value(self, user_id: str, heroine_id: str, key: str, value)->None:
+        data = self.load_user_data(user_id)
+        data["relationship"][heroine_id][key] = value
+        self.save_user_data(user_id, data)
+    
+    def update_value(self, user_id: str, heroine_id: str, key: str, delta)->None:
+        current = self.get_value(user_id, heroine_id, key, 0)
+        self.set_value(user_id, heroine_id, key, current + delta)
+    
+    def has_flag(self, user_id: str, heroine_id: str, flag_name: str)->bool:
+        relationship = self.get_relationship_data(user_id, heroine_id)
+        return flag_name in relationship["flags"]
+    
+    def add_flag(self, user_id: str, heroine_id: str, flag_name: str)->None:
+        data = self.load_user_data(user_id)
+        flags = data["relationship"][heroine_id]["flags"]
+        if flag_name not in flags:
+            flags.append(flag_name)
+        self.save_user_data(user_id, data)
+    
+    def get_relationship(self, user_id: str, heroine_id: str)->str:
+        affection = self.get_value(user_id, heroine_id, "affection", 0)
+        if affection < 0:
+            return "ユーザーを嫌っている。"
+        elif affection < 20:
+            return "まだ少し警戒している。"
+        elif affection < 50:
+            return "友達として接している"
+        elif affection < 80:
+            return "好意を持っている"
+        else:
+            return "かなり好意を持っている"

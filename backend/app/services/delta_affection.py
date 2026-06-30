@@ -1,10 +1,7 @@
-from app.services.state import(
-    update_affection,
-    get_affection
-)
+from app.services.state import(Relationship_Manager)
 from app.services.events import(get_available_events)
 event = get_available_events(user_id="user000", heroine_id="heroine02")
-
+manager = Relationship_Manager()
 
 import numpy as np
 import torch
@@ -18,7 +15,7 @@ def apply_affection_rules(message: str, speaker: str):
     # elif "嫌い" in message:
     #     update_affection(-5)
     evaluate_emotions(message, speaker)
-    get_affection("user000", "heroine02")
+    manager.get_value("user000", "heroine02", "affection", 0)
 
 
 emotions_history_ai = np.array([[], [], [], [], [], [], [], []])
@@ -85,7 +82,7 @@ def evaluate_favorable():
     print("内積:", score_emotions_history_ai[-1])
 
     if emotions_history_ai.shape[1] < 7:
-        update_affection("user000", "heroine02", score_emotions_history_ai[-1] * 0.5)
+        manager.update_value("user000", "heroine02", "affection", score_emotions_history_ai[-1] * 0.5)
         return
 
     # 移動平均MAを計算する、短期と長期の傾向の比較が可能、それにより現在の好感度の傾向がわかる。これを今のターンの会話の好感度の変化の正負と一致するかを比較することで、好感度変化により正確の変化を計算できる。
@@ -130,4 +127,4 @@ def evaluate_favorable():
 
     print("好感度変化:", score_emotions_history_ai[-1] + ma_difference + empathy_score)
 
-    update_affection("user000", "heroine02", score_emotions_history_ai[-1] + ma_difference + empathy_score)
+    manager.update_value("user000", "heroine02", "affection", score_emotions_history_ai[-1] + ma_difference + empathy_score)

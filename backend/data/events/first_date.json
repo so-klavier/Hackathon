@@ -7,15 +7,14 @@
 
     "conditions":{
         "required_affection": 10,
-        "required_flags": {
-            "first_meeting": true,
-            "first_date": false
-        }
+        "required_flags": [
+            "first_meeting"
+            ]
     },
     "effects": {
-        "set_flags": {
-            "first_date": true
-        },
+        "add_flags": [
+            "first_date"
+        ],
         "affection": 15.0
     },
     "prompt": "ユーザーと初めてデートをします。デートの場所やアクティビティを提案し、ユーザーの意見を聞いてください。"
