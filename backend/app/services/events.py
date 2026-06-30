@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
-from app.services.state import (get_affection, get_flags)
+from app.services.state import Relationship_Manager
+manager = Relationship_Manager()
 
 EVENT_DATA_PATH = Path(__file__).resolve().parents[3] / "backend" / "data" / "events"
 
@@ -13,12 +14,11 @@ def load_events()->list:
 
 def check_event_conditions(event: dict, user_id: str, heroine_id: str)->bool:
     conditions = event["conditions"]
-    affection = get_affection(user_id, heroine_id)
+    affection = manager.get_value(user_id, heroine_id, "affection", 0)
     if affection < conditions["required_affection"]:
         return False
-    for flag, expected in conditions["required_flags"].items():
-        actual = get_flags(user_id, heroine_id, flag)
-        if actual != expected:
+    for flag in event["conditions"]["required_flags"]:
+        if not manager.has_flag(user_id, heroine_id, flag):
             return False
     return True
 
