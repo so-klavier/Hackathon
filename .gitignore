@@ -6,10 +6,12 @@
 .vscode/
 .Python/
 .venv/
+**/.venv/
+backend/.venv/
 [Ii]nclude/
 [Ll]ib/
 [Li]ib64/
 [Ss]cripts/
 pyvenv.cfg
-.venv
+
 pip-selfcheck.json
