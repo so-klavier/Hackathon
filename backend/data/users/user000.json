@@ -1,17 +1,15 @@
 {
-    "user_data":{
+    "user_data": {
         "user_id": "user000",
         "name": "田中祥太",
-        "nickname": "たなしょう"
+        "nickname": "たなしょー"
     },
-
-    "relationship":{
-        "heroine01":{
+    "relationship": {
+        "heroine01": {
             "affection": 0.0,
-            "flags": [
-            ]
+            "flags": []
         },
-        "heroine02":{
+        "heroine02": {
             "affection": 0.0,
             "flags": [
             ]

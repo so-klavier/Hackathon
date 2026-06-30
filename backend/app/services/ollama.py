@@ -35,7 +35,7 @@ async def generate_response(message: str)->str:
 話し方: {", ".join(heroine["speech_style"])}
 """
     relationship_prompt = f"""
-    "ユーザー": {user["name"]}({user["nickname"]})
+    "ユーザー": {user["user_data"]["name"]}({user["user_data"]["nickname"]})
     好感度: {affection}
     ユーザーとの現在の関係性: {relationship}
 

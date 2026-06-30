@@ -14,7 +14,7 @@ class Relationship_Manager:
     def save_user_data(self, user_id: str, data: dict)-> None:
         file_path = USER_DATA_PATH / f"{user_id}.json"
         with open(file_path, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii="False", indent=4)
+            json.dump(data, f, ensure_ascii=False, indent=4)
     
     def get_relationship_data(self, user_id: str, heroine_id: str)->dict:
         data = self.load_user_data(user_id)
