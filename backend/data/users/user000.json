@@ -1,5 +1,18 @@
 {
-    "user_id": "user000",
-    "name": "田中祥太",
-    "nickname": "たなしょう"
+    "user_data": {
+        "user_id": "user000",
+        "name": "田中祥太",
+        "nickname": "たなしょー"
+    },
+    "relationship": {
+        "heroine01": {
+            "affection": 0.0,
+            "flags": []
+        },
+        "heroine02": {
+            "affection": 0.0,
+            "flags": [
+            ]
+        }
+    }
 }

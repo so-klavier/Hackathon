@@ -1,0 +1,20 @@
+{
+    "event_id": "first_meeting",
+
+    "name": "出会い",
+
+    "priority": 10,
+
+    "conditions":{
+        "required_affection": 0,
+        "required_flags": [
+        ]
+    },
+    "effects": {
+        "set_flags": [
+            "first_meeting"
+        ],
+        "affection": 5.0
+    },
+    "prompt": "あなたは初めてユーザーと出会いました。挨拶と自己紹介をして、ユーザーに自己紹介を求めてください。"
+}

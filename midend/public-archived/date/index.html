@@ -10,7 +10,15 @@
         <div class="container">
             <div class="background-layer"></div>
             <div class="character-layer">
-                <img src="../img/ch1.png" alt="" class="ch-img">
+                <img src="../img/ch1.png" alt="" class="ch-img" />
+            </div>
+            <div class="ui-animation-layer" id="ui-animation-layer">
+                <div class="small-chat dynamic-chat" style="display: none;">
+                    <p></p>
+                </div>
+                <div class="big-chat dynamic-chat" >
+                    <p></p>
+                </div>
             </div>
             <div class="ui-layer">
                 <div class="ui-container">
@@ -19,7 +27,9 @@
                         <button type="button" class="send-btn" id="sendBtn">送信</button>
                     </div>
                     <div class="chat-container">
-                        <textarea name="chat" id="chat" class="chat"></textarea>
+                        <div class="chat-box">
+                            <textarea name="chat" id="chat" class="chat">hello</textarea>
+                        </div>
                     </div>
                 </div>
             </div>

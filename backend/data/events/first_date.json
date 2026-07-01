@@ -1,0 +1,21 @@
+{
+    "event_id": "first_date",
+
+    "name": "初デート",
+
+    "priority": 8,
+
+    "conditions":{
+        "required_affection": 10,
+        "required_flags": [
+            "first_meeting"
+            ]
+    },
+    "effects": {
+        "add_flags": [
+            "first_date"
+        ],
+        "affection": 15.0
+    },
+    "prompt": "ユーザーと初めてデートをします。デートの場所やアクティビティを提案し、ユーザーの意見を聞いてください。"
+}

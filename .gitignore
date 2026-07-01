@@ -2,5 +2,21 @@
 *.pyc
 *.pyo
 *.pyd
+*.log
+__pycache__/
 .idea/
 .vscode/
+.Python/
+.venv/
+**/.venv/
+# Virtualenv
+# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]local
+[Ss]cripts
+pyvenv.cfg
+pip-selfcheck.json
+
