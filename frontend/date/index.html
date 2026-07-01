@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="date.css" />
+        <link rel="stylesheet" href="ui.css">
+        <link rel="stylesheet" href="ui-style.css">
+        <title>運命の出会い</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="background-layer"></div>
+            <div class="character-layer">
+                <img src="../img/ch1.png" alt="" class="ch-img">
+            </div>
+            <div class="ui-style-layer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="input-box-style input-box-style-base">
+                    <defs>
+                        <linearGradient id="input-box-line" x1="0" y1="0" x2="100%" y2="0">
+                            <stop offset="0%" stop-color="rgba(255,255,255,0.5)" stop-opacity="0"></stop>
+                            <stop offset="10%" stop-color="rgba(255,255,255,0.5)" stop-opacity="1"></stop>
+                            <stop offset="90%" stop-color="rgba(255,255,255,0.5)" stop-opacity="1"></stop>
+                            <stop offset="100%" stop-color="rgba(255,255,255,0.5)" stop-opacity="0"></stop>
+                        </linearGradient>
+                    </defs>
+
+                    <mask id="input-box-mask">
+                        <rect rx="25" x="0" y="0" width="640" height="50" fill="white" stroke="white" stroke-width="1"/>
+                    </mask>
+
+                    <rect rx="10" x="0" y="0" width="640" height="50" fill="rgba(255,255,255,0.2)" stroke="url(#input-box-line)" stroke-width="1"/>
+
+                </svg>
+            </div>
+            <div class="ui-layer">
+                <div class="ui-container">
+                    <div class="input-box input-box-base"></div>
+                        <textarea name="chat" id="chat" class="input"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <script type="module" src="date.ts"></script>
+    </body>
+</html>

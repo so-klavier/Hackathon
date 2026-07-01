@@ -1,23 +1,20 @@
-class chatEngine {
-    constructor(talking, firstSerif, serifElement) {
-        this.currentTalking = talking; //value will be User or AI
+import { gsap } from "gsap"
+
+export class chatEngine {
+    private aiStatus: any;
+    private serifBox: any;
+
+    constructor(serifElement: any) {
         this.aiStatus;
-        this.currentSerif = firstSerif;
         this.serifBox = serifElement;
     }
 
-    set serif(s) {
-        this.currentSerif = s;
+    set serif(s: any) {
         this.serifBox.value = s;
     }
 
-    set speaker(s) {
-        this.currentTalking = s;
-    }
-
-    async generate(speaker, serif) {
+    async generate(serif: string) {
         this.serif = serif;
-        this.speaker = speaker;
         if (serif.trim() !== "") {
             const response = await fetch("http://127.0.0.1:5002/message", {
                 method: "POST",
@@ -33,4 +30,16 @@ class chatEngine {
         }
         return null;
     }
+}
+
+
+document.getElementsByName("big-chat")[0].addEventListener("click", () => {
+    shiftChatElement()
+})
+
+function shiftChatElement() {
+    const chatElement = document.getElementsByName("big-chat")[0]
+    let chatBox_tl = gsap.timeline();
+
+    chatBox_tl.to(chatElement, {height: "10vh", width: "20vw", top: "50vh", ease:"power2.out"})
 }

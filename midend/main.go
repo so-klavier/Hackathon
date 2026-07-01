@@ -11,7 +11,7 @@ import (
 func main() {
 	router := gin.Default()
 
-	router.Static("/", "./public")
+	router.Static("/", "./public-archived")
 
 	router.POST("/message", func(c *gin.Context) {
 		bodyBytes, err := io.ReadAll(c.Request.Body)
