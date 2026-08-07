@@ -95,7 +95,7 @@ class RelationshipManager:
         relationship = self.get_relationship_data( heroine_id)
         return flag_name in relationship["flags"]
 
-    def add_flag(self, user_id: str, heroine_id: str, flag_name: str) -> None:
+    def add_flag(self, heroine_id: str, flag_name: str) -> None:
         data = self.load_user_data()
         flags = data["relationship"][heroine_id]["flags"]
         if flag_name not in flags:

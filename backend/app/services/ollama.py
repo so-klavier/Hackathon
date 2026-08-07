@@ -80,7 +80,7 @@ async def generate_response(message: str)->str:
     messages.extend(get_history())
 
     response = chat(
-        model="gemma4:e4B",
+        model="gemma4:e4b",
         messages=messages,
         think=False
     )

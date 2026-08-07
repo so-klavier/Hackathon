@@ -10,8 +10,9 @@
             "flags": []
         },
         "heroine02": {
-            "affection": 0.0,
+            "affection": 1.4873107731342317,
             "flags": [
+                "first_meeting"
             ]
         }
     }
