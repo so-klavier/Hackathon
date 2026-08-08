@@ -28,6 +28,7 @@ document.getElementsByName("chat")[0].addEventListener("focus", () => {
 document.getElementById("sendBtn")?.addEventListener("click", async () => {
     const res = await chat.generate(chatBox.value);
     if(res){
+        chatPreview.innerText = chatBox.value.slice(0,9) + "...";
         chat.showSerif(res);
         chatBox.blur();
     }

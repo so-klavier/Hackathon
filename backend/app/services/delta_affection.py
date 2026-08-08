@@ -15,7 +15,7 @@ def apply_affection_rules(message: str, speaker: str):
     # elif "嫌い" in message:
     #     update_affection(-5)
     evaluate_emotions(message, speaker)
-    manager.get_value("user000", "heroine02", "affection", 0)
+    manager.get_value("user000", "heroine01", "affection", 0)
 
 
 emotions_history_ai = np.array([[], [], [], [], [], [], [], []])

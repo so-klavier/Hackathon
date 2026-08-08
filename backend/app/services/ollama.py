@@ -20,7 +20,7 @@ manager = Relationship_Manager()
 async def generate_response(message: str)->str:
 
     system_prompt = load_system_prompt()
-    heroine = load_heroine("heroine02")
+    heroine = load_heroine("heroine01")
     user = load_user("user000")
     relationship = manager.get_relationship("user000", "heroine02")
     affection = manager.get_value("user000", "heroine02", "affection", 0)
