@@ -10,6 +10,19 @@
 
 .input-box-style{
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 
-    mask-image: url(#input-box-mask);
+    /*
+      CSS側で直接、中心から外側に向けて消えていく放射状マスクを指定します。
+      ※Google ChromeやSafari等のために -webkit- プレフィックスの併記が必要です。
+    */
+    -webkit-mask-image: radial-gradient(circle at center, black 0%, transparent 80%);
+    mask-image: radial-gradient(circle at center, black 0%, transparent 80%);
+}
+
+.sub-input-box-style{
+    backdrop-filter: blur(10px);
+
+    mask-image: url(#sub-input-box-mask);
+
 }

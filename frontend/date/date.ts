@@ -1,31 +1,35 @@
-// import { chatEngine } from "../engine/engine.ts";
+import { chatEngine } from "../engine/engine.ts";
 import { gsap } from "gsap"
 
-const chatBox  = document.getElementById("chat");
+const chatBox = document.getElementById("chat") as HTMLTextAreaElement | null;
 const sendBtn = document.getElementById("sendBtn");
+const chatPreview = document.getElementById("chat-preview") as HTMLParagraphElement | null;
 
-// const chat = new chatEngine(chatBox);
+const chat = new chatEngine(chatBox);
 
-if(sendBtn && chatBox) {
-    sendBtn.addEventListener("click", async () => {
-        // // @ts-ignore
-        // const message = chatBox.value;
-        // const res = await chat.generate(message);
-        //
-        // console.log(res);
+let userName = "ダパン";
 
-        shiftChatElement()
-        console.log("hello")
-    });
-}
 
-document.getElementsByName("big-chat")[0].addEventListener("click", () => {
-    shiftChatElement()
+// document.getElementsByName("chat")[0].addEventListener("keydown", async (e) => {
+//     if(e.metaKey && e.key == "Enter" && chatBox) {
+//         const res = await chat.generate(chatBox.value);
+//         chat.showSerif(res);
+//     }
+// })
+
+document.getElementsByName("chat")[0].addEventListener("focus", () => {
+    if(chat.current_speaker == "AI"){
+        chat.setSpeaker("User");
+        chatPreview.innerText = chatBox.value.slice(0,9) + "...";
+        chatBox.value = "";
+    }
 })
 
-function shiftChatElement() {
-    const chatElement = document.getElementsByName("big-chat")[0]
-    let chatBox_tl = gsap.timeline();
-
-    chatBox_tl.to(chatElement, {duration:0.5, height: "10%", width: "20%", top: "50%", ease:"power2.out"})
-}
+document.getElementById("sendBtn")?.addEventListener("click", async () => {
+    const res = await chat.generate(chatBox.value);
+    if(res){
+        chat.showSerif(res);
+        chatBox.blur();
+    }
+    
+})

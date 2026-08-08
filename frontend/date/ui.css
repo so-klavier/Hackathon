@@ -9,33 +9,118 @@
 
 /*---*/
 
+.speaker-box-base{
+    position: absolute;
+    top: 345px;
+    left: 350px;
+
+    height: 20px;
+    width: 100px;
+}
+
+.speaker{
+    font-size: 16px;
+    color: rgb(200, 200, 200);
+    user-select: none;
+    text-align: center;
+}
+
+.preview-box-base, .preview-box-style-base{
+    position: absolute;
+    top: 345px;
+    right: 20px;
+
+    height: 20px;
+    width: 200px;
+}
+
+.preview-box-style-base{
+    overflow: visible;
+    width: 210px;
+    height: 30px;
+}
+
+.preview{
+    font-size: 16px;
+    color: rgb(200, 200, 200);
+    user-select: none;
+    text-align: left;
+}
+
 .input-box-base, .input-box-style-base{
     position: absolute;
-    top: 400px;
-    left: 80px;
+    top: 375px;
+    left: 0px;
 
-    height: 50px;
-    width: 640px;
+    height: 135px;
+    width: 800px;
 }
 
 .input-box{
     resize: none;
     background: none;
     border: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .input{
     position: absolute;
-    top: 395px;
-    left: 85px;
+    left: 97.5px;
+    top: 5px;
+    
+    height: 80px;
+    width: 605px;
 
-    height: 40px;
-    width: 640px;
-
-    padding: 0;
+    padding: 5px;
     resize: none;
     background: none;
     outline: none;
     border: none;
     color: white;
+
+    caret-color: white;
+
+    font-size: 16px;
+
+    text-align: center;
+
+    z-index: 60;
+}
+
+.sub-input-box-base, .sub-input-box-style-base{
+    position: absolute;
+    top: 265px;
+    right: 25px;
+
+    height: 100px;
+    width: 100px;
+}
+
+.send-box-base, .send-box-style-base{
+    position: absolute;
+    bottom: 10px;
+    right: 376px;
+
+    height: 30px;
+    width: 48px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    cursor: pointer;
+}
+
+.send{
+    font-size: 16px;
+    color: white;
+    user-select: none;
+
 }

@@ -14,29 +14,76 @@
             <div class="character-layer">
                 <img src="../img/ch1.png" alt="" class="ch-img">
             </div>
+            <div class="ui-display-style-layer">
+
+            </div>
+            <div class="ui-display-layer"></div>
             <div class="ui-style-layer">
-                <svg xmlns="http://www.w3.org/2000/svg" class="input-box-style input-box-style-base">
-                    <defs>
-                        <linearGradient id="input-box-line" x1="0" y1="0" x2="100%" y2="0">
-                            <stop offset="0%" stop-color="rgba(255,255,255,0.5)" stop-opacity="0"></stop>
-                            <stop offset="10%" stop-color="rgba(255,255,255,0.5)" stop-opacity="1"></stop>
-                            <stop offset="90%" stop-color="rgba(255,255,255,0.5)" stop-opacity="1"></stop>
-                            <stop offset="100%" stop-color="rgba(255,255,255,0.5)" stop-opacity="0"></stop>
-                        </linearGradient>
-                    </defs>
+                <span name="main-input">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="input-box-style input-box-style-base">
+                        <defs>
+                            <linearGradient id="input-box-line" x1="0" y1="0" x2="100%" y2="0">
+                                <stop offset="20%" stop-color="rgba(255,255,255,0.5)" stop-opacity="0"></stop>
+                                <stop offset="40%" stop-color="rgba(255,255,255,0.5)" stop-opacity="1"></stop>
+                                <stop offset="60%" stop-color="rgba(255,255,255,0.5)" stop-opacity="1"></stop>
+                                <stop offset="80%" stop-color="rgba(255,255,255,0.5)" stop-opacity="0"></stop>
+                            </linearGradient>
 
-                    <mask id="input-box-mask">
-                        <rect rx="25" x="0" y="0" width="640" height="50" fill="white" stroke="white" stroke-width="1"/>
-                    </mask>
+                            <radialGradient id="blur-radial" cx="50%" cy="50%" r="50%">
+                                <stop offset="0%" stop-color="white" />
+                                <stop offset="70%" stop-color="black" />
+                                <stop offset="100%" stop-color="black" />
 
-                    <rect rx="10" x="0" y="0" width="640" height="50" fill="rgba(255,255,255,0.2)" stroke="url(#input-box-line)" stroke-width="1"/>
+                            </radialGradient>
+                        </defs>
 
-                </svg>
+                        <mask id="input-box-mask">
+                            <rect rx="25" x="0" y="0" width="800" height="135" fill="url(#blur-radial)" stroke="white" stroke-width="1"/>
+                        </mask>
+
+                        <rect rx="25" x="0" y="0" width="800" height="135" fill="rgba(0,0,0,0.1)" stroke="url(#input-box-line)" stroke-width="1"/>
+
+                    </svg>
+                </span>
+
+                <span name="send-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="send-box-style send-box-style-base">
+
+                        <mask id="send-box-mask">
+                            <rect rx="10" x="1" y="1" width="46" height="28" fill="#fff" stroke="#000" stroke-width="2"/>
+                        </mask>
+
+                        <rect rx="10" x="1" y="1" width="46" height="28" fill="rgba(0,0,0,0.1)" stroke="rgba(230,230,230,0.5)" stroke-width="2"/>
+
+                    </svg>
+                </span>
+
+                <span name="preview-box">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="preview-box-style preview-box-style-base">
+
+                        <mask id="preview-box-mask">
+                            <rect rx="12" x="1" y="-4" width="208" height="28" fill="#fff" stroke="#000" stroke-width="2"/>
+                        </mask>
+
+                        <rect rx="12" x="1" y="-4" width="208" height="28" fill="rgba(0,0,0,0.7)" stroke="rgba(70,70,70,0.5)" stroke-width="2"/>
+
+                    </svg>
+                </span>
             </div>
             <div class="ui-layer">
                 <div class="ui-container">
-                    <div class="input-box input-box-base"></div>
-                        <textarea name="chat" id="chat" class="input"></textarea>
+                    <div class="speaker-box speaker-box-base">
+                        <p id="speaker-name" class="speaker">| User |</p>
+                    </div>
+                    <div class="preview-box preview-box-base">
+                        <p id="chat-preview" class="preview"></p>
+                    </div>
+                    <div class="input-box input-box-base">
+                        <textarea name="chat" id="chat" class="input" value=""></textarea>
+                    </div>
+                    <div class="send-box send-box-base" id="sendBtn">
+                        <p class="send">送る</p>
+                    </div>
                 </div>
             </div>
         </div>

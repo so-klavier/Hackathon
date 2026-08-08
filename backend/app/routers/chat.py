@@ -7,6 +7,8 @@ from app.services.delta_affection import(apply_affection_rules)
 router = APIRouter()
 manager = Relationship_Manager()
 
+
+
 @router.post("/chat",response_model=Chatresponse)
 async def chat(request: Chatrequest):
     apply_affection_rules(request.message, "user")

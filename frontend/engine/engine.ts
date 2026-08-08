@@ -1,22 +1,22 @@
-import { gsap } from "gsap"
+// import { gsap } from "gsap"
 
 export class chatEngine {
     private aiStatus: any;
     private serifBox: any;
+    public current_speaker: string;
+    private speakerNameBox: any;
 
     constructor(serifElement: any) {
         this.aiStatus;
         this.serifBox = serifElement;
-    }
-
-    set serif(s: any) {
-        this.serifBox.value = s;
+        this.speakerNameBox = document.getElementById("speaker-name");
+        this.current_speaker = "User";
     }
 
     async generate(serif: string) {
-        this.serif = serif;
-        if (serif.trim() !== "") {
-            const response = await fetch("http://127.0.0.1:5002/message", {
+        if (serif.trim() !== "" && this.current_speaker == "User") {
+            this.setSpeaker("AI");
+            const response = await fetch("http://127.0.0.1:8000/chat", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -25,21 +25,32 @@ export class chatEngine {
             });
 
             const data = await response.json();
-            this.serif = data.response;
             return data.response;
         }
         return null;
     }
+
+    setSpeaker(s: string) {
+        this.speakerNameBox.innerText = "| " + s + " |";
+        this.current_speaker = s;
+        return true
+    }
+
+    showSerif(s: string) {
+        this.serifBox.value = s;
+        this.setSpeaker("AI");
+        return true
+    }
 }
 
 
-document.getElementsByName("big-chat")[0].addEventListener("click", () => {
-    shiftChatElement()
-})
+// document.getElementsByName("big-chat")[0].addEventListener("click", () => {
+//     shiftChatElement()
+// })
 
-function shiftChatElement() {
-    const chatElement = document.getElementsByName("big-chat")[0]
-    let chatBox_tl = gsap.timeline();
+// function shiftChatElement() {
+//     const chatElement = document.getElementsByName("big-chat")[0]
+//     let chatBox_tl = gsap.timeline();
 
-    chatBox_tl.to(chatElement, {height: "10vh", width: "20vw", top: "50vh", ease:"power2.out"})
-}
+//     chatBox_tl.to(chatElement, {height: "10vh", width: "20vw", top: "50vh", ease:"power2.out"})
+// }
